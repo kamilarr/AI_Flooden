@@ -1,8 +1,9 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn.metrics import accuracy_score, confusion_matrix
 import joblib
+import graphviz
 
 # 1. Baca dataset
 df = pd.read_excel("dataset_fix.xlsx") 
@@ -20,9 +21,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # 4. Latih model
 model = DecisionTreeClassifier(
     random_state=42,
-    max_depth=6,                
-    min_samples_split=3,        
-    class_weight='balanced'     
+    max_depth=6,
+    min_samples_split=3,
+    class_weight='balanced'
 )
 model.fit(X_train, y_train)
 
@@ -34,3 +35,14 @@ print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
 # 6. Simpan model
 joblib.dump(model, "flooden_model.pkl")
 print("Model saved as flooden_model.pkl")
+
+# 7. Visualisasi dengan Graphviz
+dot_data = export_graphviz(model, out_file=None, 
+                           feature_names=features,
+                           class_names=["Aman", "Banjir"],  
+                           filled=True, rounded=True,
+                           special_characters=True)
+
+graph = graphviz.Source(dot_data)
+graph.render("flooden_tree")  
+graph.view()  # Opens the rendered tree in the default viewer
