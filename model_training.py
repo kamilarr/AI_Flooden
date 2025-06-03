@@ -45,4 +45,4 @@ dot_data = export_graphviz(model, out_file=None,
 
 graph = graphviz.Source(dot_data)
 graph.render("flooden_tree")  
-graph.view()  # Opens the rendered tree in the default viewer
+graph.view()

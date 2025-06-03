@@ -1,20 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Prediksi Banjir Jakarta</title>
+    <meta charset="UTF-8">
+    <title>Prediksi Banjir - Flooden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Prediksi Potensi Banjir Jakarta</h1>
-    <form method="POST">
-        {% for field in ['Tn','Tx','Tavg','RH_avg','RR','ss','ff_x','ddd_x','ff_avg','cat_ddd','category_region'] %}
-            <label>{{ field }}</label><br>
-            <input type="number" step="any" name="{{ field }}" required><br><br>
-        {% endfor %}
-        <button type="submit">Prediksi</button>
-    </form>
+<body class="bg-gradient-to-br from-blue-100 to-blue-300 min-h-screen flex items-center justify-center px-4">
+    <div class="bg-white shadow-xl rounded-xl p-8 max-w-2xl w-full">
+        <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">🔍 Prediksi Risiko Banjir - <span class="font-black text-blue-600">Flooden</span></h1>
+        
+        <form method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Suhu Minimum (°C)</label>
+                <input type="number" name="Tn" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Suhu Maksimum (°C)</label>
+                <input type="number" name="Tx" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Suhu Rata-rata (°C)</label>
+                <input type="number" name="Tavg" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Kelembapan Rata-rata (%)</label>
+                <input type="number" name="RH_avg" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Curah Hujan (mm)</label>
+                <input type="number" name="RR" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Lama Penyinaran Matahari (jam)</label>
+                <input type="number" name="ss" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Kecepatan Angin Maksimum (m/s)</label>
+                <input type="number" name="ff_x" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Arah Angin Saat Kecepatan Maksimum (°)</label>
+                <input type="number" name="ddd_x" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Kecepatan Angin Rata-rata (m/s)</label>
+                <input type="number" name="ff_avg" step="any" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Kategori Arah Angin Dominan</label>
+                <input type="number" name="cat_ddd" step="1" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Contoh: 1 = Utara, 2 = Timur, dst">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Kode Wilayah</label>
+                <input type="number" name="category_region" step="1" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Contoh: 1 = Jakarta Pusat, 2 = Selatan, dst">
+            </div>
+            <div class="sm:col-span-2">
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
+                    🔎 Prediksi Sekarang
+                </button>
+            </div>
+        </form>
 
-    {% if result %}
-        <h2>Hasil Prediksi: {{ result }}</h2>
-    {% endif %}
+
+        {% if result %}
+        <div class="mt-6 p-4 rounded-md text-white text-center font-bold text-lg shadow-lg
+            {% if 'POTENSI BANJIR' in result %}
+                bg-red-500
+            {% elif 'TIDAK ADA' in result %}
+                bg-green-500
+            {% else %}
+                bg-yellow-500
+            {% endif %}
+        ">
+            {{ result }}
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
