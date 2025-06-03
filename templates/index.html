@@ -57,15 +57,30 @@
                     class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
             </div>
             <div>
-                <label class="block text-sm font-semibold text-gray-700">Kategori Arah Angin Dominan</label>
-                <input type="number" name="cat_ddd" step="1" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Contoh: 1 = Utara, 2 = Timur, dst">
+                <label class="block text-sm font-semibold text-gray-700">Arah Angin Dominan</label>
+                <select name="cat_ddd" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <option value="0">C (Calm)</option>
+                    <option value="1">E (Timur)</option>
+                    <option value="2">N (Utara)</option>
+                    <option value="3">NE (Timur Laut)</option>
+                    <option value="4">NW (Barat Laut)</option>
+                    <option value="5">S (Selatan)</option>
+                    <option value="6">SE (Tenggara)</option>
+                    <option value="7">SW (Barat Daya)</option>
+                    <option value="8">W (Barat)</option>
+                </select>
             </div>
             <div>
-                <label class="block text-sm font-semibold text-gray-700">Kode Wilayah</label>
-                <input type="number" name="category_region" step="1" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Contoh: 1 = Jakarta Pusat, 2 = Selatan, dst">
+                <label class="block text-sm font-semibold text-gray-700">Wilayah Stasiun</label>
+                <select name="category_region" required
+                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <option value="0">Jakarta Utara</option>
+                    <option value="1">Jakarta Selatan</option>
+                    <option value="2">Jakarta Pusat</option>
+                </select>
             </div>
+
             <div class="sm:col-span-2">
                 <button type="submit"
                     class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
