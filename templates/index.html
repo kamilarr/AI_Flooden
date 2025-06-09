@@ -27,21 +27,26 @@
 
 
 
-        <form method="POST" action="/" class="mb-6 flex flex-col sm:flex-row items-center gap-4 justify-center">
-            <label for="location" class="font-semibold text-gray-700">Pilih Lokasi:</label>
-            <select id="location" name="location" class="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto focus:ring-2 focus:ring-blue-500">
-                <option value="jakarta_utara">Jakarta Utara</option>
-                <option value="jakarta_selatan">Jakarta Selatan</option>
-                <option value="jakarta_pusat" selected>Jakarta Pusat</option>
-            </select>
-            <button
-                type="submit"
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded shadow transition duration-300"
-            >
-                <span class="material-icons-outlined align-middle text-white mr-2">search</span>
-                Prediksi Banjir
-            </button>
-        </form>
+        <form method="POST" action="/" class="mb-6 flex flex-col sm:flex-row items-center gap-4 justify-center flex-wrap">
+    <label for="location" class="font-semibold text-gray-700">Pilih Lokasi:</label>
+    <select id="location" name="location" class="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto focus:ring-2 focus:ring-blue-500">
+        <option value="jakarta_utara">Jakarta Utara</option>
+        <option value="jakarta_selatan">Jakarta Selatan</option>
+        <option value="jakarta_pusat" selected>Jakarta Pusat</option>
+    </select>
+
+    <label for="tanggal" class="font-semibold text-gray-700">Pilih Tanggal:</label>
+    <input type="date" id="tanggal" name="tanggal" class="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto focus:ring-2 focus:ring-blue-500" />
+
+    <button
+        type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded shadow transition duration-300"
+    >
+        <span class="material-icons-outlined align-middle text-white mr-2">search</span>
+        Prediksi Banjir
+    </button>
+</form>
+
 
         {% if data %}
         <div class="mb-6">

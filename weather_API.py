@@ -1,6 +1,15 @@
 import requests
+import datetime
 
-def get_combined_weather(city, api_key, lat, lon):
+def get_combined_weather(lokasi, api_key, lat, lon, tanggal=None):
+    if tanggal is None:
+        tanggal = datetime.date.today().isoformat()
+    else:
+        # validasi format jika perlu
+        tanggal = tanggal[:10]
+
+    # Lanjutkan ambil data dari API sesuai tanggal
+
     """
     Mengambil data cuaca gabungan dari OpenWeatherMap dan NASA POWER API.
     Saat ini hanya ambil data dari OpenWeatherMap untuk demo,

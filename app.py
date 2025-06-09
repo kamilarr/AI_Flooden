@@ -33,6 +33,7 @@ def index():
 
     if request.method == 'POST':
         lokasi = request.form.get('location', 'jakarta_pusat')
+        tanggal = request.form.get('tanggal')
         lat, lon = lokasi_koordinat.get(lokasi, (-6.17, 106.82))
         lokasi_nama = lokasi_nama_map.get(lokasi, "Jakarta Pusat")
 
