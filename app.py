@@ -57,7 +57,12 @@ def index():
 
             # Prediksi dengan model
             pred = model.predict(input_df)[0]
-            result = "💧 POTENSI BANJIR TERDETEKSI!" if pred == 1 else "✅ TIDAK ADA POTENSI BANJIR."
+            result = (
+                '<span class="material-icons-outlined align-middle mr-2">warning</span> POTENSI BANJIR TERDETEKSI!'
+                if pred == 1
+                else '<span class="material-icons-outlined align-middle mr-2">check_circle</span> TIDAK ADA POTENSI BANJIR'
+            )
+
 
         except Exception as e:
             result = f"Terjadi error saat prediksi: {e}"

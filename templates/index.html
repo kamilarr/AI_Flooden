@@ -5,51 +5,70 @@
     <title>Prediksi Banjir - Flooden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .flooden-logo {
+            font-family: 'Pacifico', cursive;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-blue-300 min-h-screen flex items-center justify-center px-4">
-    <div class="bg-white shadow-xl rounded-xl p-8 max-w-2xl w-full">
+    <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-2xl w-full">
         <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">
-            🔍 Prediksi Risiko Banjir - <span class="font-black text-blue-600">Flooden</span>
+            <span class="text-4xl material-icons-outlined align-middle text-blue-600 mr-2">tsunami</span>
+            <span class="flooden-logo text-4xl text-blue-600"> Flooden </span>
+            - Prediksi Resiko Banjir
         </h1>
+
+
 
         <form method="POST" action="/" class="mb-6 flex flex-col sm:flex-row items-center gap-4 justify-center">
             <label for="location" class="font-semibold text-gray-700">Pilih Lokasi:</label>
-            <select id="location" name="location" class="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto">
+            <select id="location" name="location" class="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto focus:ring-2 focus:ring-blue-500">
                 <option value="jakarta_utara">Jakarta Utara</option>
                 <option value="jakarta_selatan">Jakarta Selatan</option>
                 <option value="jakarta_pusat" selected>Jakarta Pusat</option>
             </select>
             <button
                 type="submit"
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded shadow"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded shadow transition duration-300"
             >
+                <span class="material-icons-outlined align-middle text-white mr-2">search</span>
                 Prediksi Banjir
             </button>
         </form>
 
         {% if data %}
         <div class="mb-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">📊 Data Cuaca Terkini (Jakarta)</h2>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
-                <li>🌡️ Suhu Min: <strong>{{ data.temp_min }} °C</strong></li>
-                <li>🌡️ Suhu Max: <strong>{{ data.temp_max }} °C</strong></li>
-                <li>🌡️ Suhu Rata-rata: <strong>{{ data.temp_avg }} °C</strong></li>
-                <li>💧 Kelembapan: <strong>{{ data.humidity }}%</strong></li>
-                <li>🌧️ Curah Hujan: <strong>{{ data.rain_1h }} mm</strong></li>
-                <li>☀️ Penyinaran Matahari: <strong>{{ data.solar_radiation | round(2) }} MJ/m²/hari</strong></li>
-                <li>🌬️ Kecepatan Angin: <strong>{{ data.wind_speed }} m/s</strong></li>
-                <li>🧭 Arah Angin: <strong>{{ data.wind_deg }}°</strong></li>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <span class="material-icons-outlined mr-2 text-blue-600">cloud</span>
+                Data Cuaca Terkini (Jakarta)
+            </h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 text-sm">
+                <li><strong>Suhu Min:</strong> {{ data.temp_min }} °C</li>
+                <li><strong>Suhu Max:</strong> {{ data.temp_max }} °C</li>
+                <li><strong>Suhu Rata-rata:</strong> {{ data.temp_avg }} °C</li>
+                <li><strong>Kelembapan:</strong> {{ data.humidity }}%</li>
+                <li><strong>Curah Hujan:</strong> {{ data.rain_1h }} mm</li>
+                <li><strong>Penyinaran Matahari:</strong> {{ data.solar_radiation | round(2) }} MJ/m²/hari</li>
+                <li><strong>Kecepatan Angin:</strong> {{ data.wind_speed }} m/s</li>
+                <li><strong>Arah Angin:</strong> {{ data.wind_deg }}°</li>
             </ul>
         </div>
         {% endif %}
 
         {% if result %}
         <div
-            class="mt-6 p-4 rounded-md text-white text-center font-bold text-lg shadow-lg
-                {% if 'POTENSI BANJIR' in result %}
-                    bg-red-500
-                {% elif 'TIDAK ADA' in result %}
+            class="mt-6 p-4 rounded-lg text-white text-center font-semibold text-lg shadow-md flex items-center justify-center gap-2
+                {% if 'TIDAK ADA' in result %}
                     bg-green-500
+                {% elif 'TERDETEKSI' in result %}
+                    bg-red-500
                 {% else %}
                     bg-yellow-500
                 {% endif %}
@@ -57,9 +76,10 @@
             role="alert"
             aria-live="polite"
         >
-            {{ result }}
+            {{ result | safe }}
         </div>
         {% endif %}
+
     </div>
 </body>
 </html>
