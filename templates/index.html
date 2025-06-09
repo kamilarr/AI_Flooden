@@ -59,8 +59,8 @@
                 <li><strong>Suhu Max:</strong> {{ data.temp_max }} °C</li>
                 <li><strong>Suhu Rata-rata:</strong> {{ data.temp_avg }} °C</li>
                 <li><strong>Kelembapan:</strong> {{ data.humidity }}%</li>
-                <li><strong>Curah Hujan:</strong> {{ data.rain_1h }} mm</li>
-                <li><strong>Penyinaran Matahari:</strong> {{ data.solar_radiation | round(2) }} MJ/m²/hari</li>
+                <li><strong>Curah Hujan (harian):</strong> {{ data.rain_1h }} mm</li>
+                <li><strong>Durasi Penyinaran Matahari:</strong> {{ data.daylight_hours | round(2) }} jam</li>
                 <li><strong>Kecepatan Angin:</strong> {{ data.wind_speed }} m/s</li>
                 <li><strong>Arah Angin:</strong> {{ data.wind_deg }}°</li>
             </ul>
