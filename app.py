@@ -35,23 +35,25 @@ def index():
     result = None
     weather_data = None
     lokasi_nama = None
+    tanggal_terpilih = datetime.date.today().strftime('%d %B %Y')  # default tanggal hari ini
 
     if request.method == 'POST':
         lokasi = request.form.get('location', 'jakarta_pusat')
         tanggal_input = request.form.get('tanggal')
 
-        # Konversi tanggal dari format HTML (yyyy-mm-dd)
         try:
-            tanggal = datetime.datetime.strptime(tanggal_input, '%Y-%m-%d').date().isoformat()
+            tanggal = datetime.datetime.strptime(tanggal_input, '%Y-%m-%d').date()
+            tanggal_terpilih = tanggal.strftime('%d %B %Y')
         except Exception:
-            tanggal = datetime.date.today().isoformat()
+            tanggal = datetime.date.today()
+            tanggal_terpilih = tanggal.strftime('%d %B %Y')
 
         lat, lon = lokasi_koordinat.get(lokasi, (-6.17, 106.82))
         lokasi_nama = lokasi_nama_map.get(lokasi, "Jakarta Pusat")
 
         try:
             # Ambil data cuaca sesuai tanggal
-            weather_data = get_combined_weather(lokasi, OPENWEATHER_API_KEY, lat, lon, tanggal=tanggal)
+            weather_data = get_combined_weather(lokasi, OPENWEATHER_API_KEY, lat, lon, tanggal=tanggal.isoformat())
 
             data_input = [
                 weather_data['temp_min'],
@@ -64,7 +66,7 @@ def index():
                 weather_data['wind_deg'],
                 weather_data['wind_speed_nasa'],
                 weather_data['wind_deg'],  # cat_ddd
-                1  # category_region: dummy / fix 1 jika hanya Jakarta
+                1  # category_region
             ]
 
             input_df = pd.DataFrame([data_input], columns=feature_names)
@@ -84,7 +86,13 @@ def index():
         except Exception as e:
             result = f"Terjadi error saat prediksi: {e}"
 
-    return render_template("index.html", result=result, data=weather_data, lokasi_nama=lokasi_nama)
+    return render_template(
+        "index.html",
+        result=result,
+        data=weather_data,
+        lokasi_nama=lokasi_nama,
+        tanggal_terpilih=tanggal_terpilih
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
