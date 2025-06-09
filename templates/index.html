@@ -1,105 +1,62 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Prediksi Banjir - Flooden</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-100 to-blue-300 min-h-screen flex items-center justify-center px-4">
     <div class="bg-white shadow-xl rounded-xl p-8 max-w-2xl w-full">
-        <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">🔍 Prediksi Risiko Banjir - <span class="font-black text-blue-600">Flooden</span></h1>
-        
-        <form method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Suhu Minimum (°C)</label>
-                <input type="number" name="Tn" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Suhu Maksimum (°C)</label>
-                <input type="number" name="Tx" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Suhu Rata-rata (°C)</label>
-                <input type="number" name="Tavg" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Kelembapan Rata-rata (%)</label>
-                <input type="number" name="RH_avg" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Curah Hujan (mm)</label>
-                <input type="number" name="RR" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Lama Penyinaran Matahari (jam)</label>
-                <input type="number" name="ss" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Kecepatan Angin Maksimum (m/s)</label>
-                <input type="number" name="ff_x" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Arah Angin Saat Kecepatan Maksimum (°)</label>
-                <input type="number" name="ddd_x" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Kecepatan Angin Rata-rata (m/s)</label>
-                <input type="number" name="ff_avg" step="any" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Arah Angin Dominan</label>
-                <select name="cat_ddd" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-                    <option value="0">C (Calm)</option>
-                    <option value="1">E (Timur)</option>
-                    <option value="2">N (Utara)</option>
-                    <option value="3">NE (Timur Laut)</option>
-                    <option value="4">NW (Barat Laut)</option>
-                    <option value="5">S (Selatan)</option>
-                    <option value="6">SE (Tenggara)</option>
-                    <option value="7">SW (Barat Daya)</option>
-                    <option value="8">W (Barat)</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">Wilayah Stasiun</label>
-                <select name="category_region" required
-                    class="mt-1 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-                    <option value="0">Jakarta Utara</option>
-                    <option value="1">Jakarta Selatan</option>
-                    <option value="2">Jakarta Pusat</option>
-                </select>
-            </div>
+        <h1 class="text-3xl font-bold text-blue-800 mb-6 text-center">
+            🔍 Prediksi Risiko Banjir - <span class="font-black text-blue-600">Flooden</span>
+        </h1>
 
-            <div class="sm:col-span-2">
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
-                    🔎 Prediksi Sekarang
-                </button>
-            </div>
+        <form method="POST" action="/" class="mb-6 flex flex-col sm:flex-row items-center gap-4 justify-center">
+            <label for="location" class="font-semibold text-gray-700">Pilih Lokasi:</label>
+            <select id="location" name="location" class="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto">
+                <option value="jakarta_utara">Jakarta Utara</option>
+                <option value="jakarta_selatan">Jakarta Selatan</option>
+                <option value="jakarta_pusat" selected>Jakarta Pusat</option>
+            </select>
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded shadow"
+            >
+                Prediksi Banjir
+            </button>
         </form>
 
+        {% if data %}
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">📊 Data Cuaca Terkini (Jakarta)</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
+                <li>🌡️ Suhu Min: <strong>{{ data.temp_min }} °C</strong></li>
+                <li>🌡️ Suhu Max: <strong>{{ data.temp_max }} °C</strong></li>
+                <li>🌡️ Suhu Rata-rata: <strong>{{ data.temp_avg }} °C</strong></li>
+                <li>💧 Kelembapan: <strong>{{ data.humidity }}%</strong></li>
+                <li>🌧️ Curah Hujan: <strong>{{ data.rain_1h }} mm</strong></li>
+                <li>☀️ Penyinaran Matahari: <strong>{{ data.solar_radiation | round(2) }} MJ/m²/hari</strong></li>
+                <li>🌬️ Kecepatan Angin: <strong>{{ data.wind_speed }} m/s</strong></li>
+                <li>🧭 Arah Angin: <strong>{{ data.wind_deg }}°</strong></li>
+            </ul>
+        </div>
+        {% endif %}
 
         {% if result %}
-        <div class="mt-6 p-4 rounded-md text-white text-center font-bold text-lg shadow-lg
-            {% if 'POTENSI BANJIR' in result %}
-                bg-red-500
-            {% elif 'TIDAK ADA' in result %}
-                bg-green-500
-            {% else %}
-                bg-yellow-500
-            {% endif %}
-        ">
+        <div
+            class="mt-6 p-4 rounded-md text-white text-center font-bold text-lg shadow-lg
+                {% if 'POTENSI BANJIR' in result %}
+                    bg-red-500
+                {% elif 'TIDAK ADA' in result %}
+                    bg-green-500
+                {% else %}
+                    bg-yellow-500
+                {% endif %}
+            "
+            role="alert"
+            aria-live="polite"
+        >
             {{ result }}
         </div>
         {% endif %}
