@@ -37,8 +37,6 @@ model_all.fit(X_train_all, y_train_all)
 
 y_pred_all = model_all.predict(X_test_all)
 acc_all = accuracy_score(y_test_all, y_pred_all)
-# print("\n✅ Akurasi model dengan SEMUA fitur:", acc_all)
-# print("Confusion Matrix (semua fitur):\n", confusion_matrix(y_test_all, y_pred_all))
 
 # Simpan model semua fitur
 joblib.dump(model_all, "flooden_model_all.pkl")
@@ -55,8 +53,7 @@ model_imp.fit(X_train_imp, y_train_imp)
 
 y_pred_imp = model_imp.predict(X_test_imp)
 acc_imp = accuracy_score(y_test_imp, y_pred_imp)
-# print("\n🎯 Akurasi model dengan 3 FITUR penting:", acc_imp)
-# print("Confusion Matrix (3 fitur):\n", confusion_matrix(y_test_imp, y_pred_imp))
+
 
 # Simpan model 3 fitur
 joblib.dump(model_imp, "flooden_model_important.pkl")
@@ -72,6 +69,16 @@ dot_data = export_graphviz(model_imp, out_file=None,
 
 graph = graphviz.Source(dot_data)
 graph.render("flooden_tree_important")
+graph.view()
+
+dot_data = export_graphviz(model_all, out_file=None,
+                           feature_names=all_features,
+                           class_names=["Aman", "Banjir"],
+                           filled=True, rounded=True,
+                           special_characters=True)
+
+graph = graphviz.Source(dot_data)
+graph.render("flooden_tree")
 graph.view()
 
 from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score
