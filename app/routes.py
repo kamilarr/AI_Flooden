@@ -1,13 +1,12 @@
-from flask import Flask, render_template, request
+from flask import render_template, request
+from app import app
 import joblib
 import pandas as pd
-from weather_API import get_combined_weather
 import datetime
-
-app = Flask(__name__)
+from app.weather_API import get_combined_weather
 
 # Load model penting
-model = joblib.load("flooden_model_important.pkl")
+model = joblib.load("app/Model/flooden_model_important.pkl")  # path relatif disesuaikan
 api_keys = {
     'openweather': 'dff0a34ec7ec59d3828240dbccc14d76',
     'visualcrossing': 'XYCM5KGLMGRWNETW94ADVFF65'
@@ -20,18 +19,19 @@ lokasi_koordinat = {
     'jakarta_pusat': (-6.17, 106.82)
 }
 
-# Nama lokasi untuk ditampilkan
 lokasi_nama_map = {
     'jakarta_utara': "Jakarta Utara",
     'jakarta_selatan': "Jakarta Selatan",
     'jakarta_pusat': "Jakarta Pusat"
 }
 
-# Fitur penting saja
 important_features = ["RR", "RH_avg", "Tavg"]
+@app.route('/')
+def home():
+    return render_template("index.html")  # halaman deskripsi awal
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
     result = None
     weather_data = None
     lokasi_nama = None
@@ -53,11 +53,10 @@ def index():
         try:
             weather_data = get_combined_weather(lokasi, api_keys, lat, lon, tanggal=tanggal.isoformat())
 
-            # Ambil hanya 3 fitur penting
             data_input = [
-                weather_data['rain_daily'],    # RR
-                weather_data['humidity'],      # RH_avg
-                weather_data['temp_avg'],      # Tavg
+                weather_data['rain_daily'],
+                weather_data['humidity'],
+                weather_data['temp_avg'],
             ]
 
             input_df = pd.DataFrame([data_input], columns=important_features)
@@ -84,12 +83,9 @@ def index():
             result = f"❌ Terjadi error saat prediksi: {e}"
 
     return render_template(
-        "index.html",
+        "predict.html",
         result=result,
         data=weather_data,
         lokasi_nama=lokasi_nama,
         tanggal_terpilih=tanggal_terpilih
     )
-
-if __name__ == '__main__':
-    app.run(debug=True)

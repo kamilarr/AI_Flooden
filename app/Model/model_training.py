@@ -8,7 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # 1. Baca dataset CSV (ubah koma ke titik dan abaikan baris kosong)
-df = pd.read_csv("dataset_flooden.csv", delimiter=';', decimal=',')
+df = pd.read_csv("app/Data/dataset_flooden.csv", delimiter=';', decimal=',')
 
 # 2. Buang baris yang mengandung missing values (NA)
 df = df.dropna()

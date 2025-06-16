@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flooden - Prediksi Banjir Jakarta</title>
+    <meta name="description" content="Sistem prediksi banjir cerdas untuk wilayah Jakarta" />
+    <meta name="author" content="Flooden Team" />
+
+    <meta property="og:title" content="Flooden - Prediksi Banjir Jakarta" />
+    <meta property="og:description" content="Sistem prediksi banjir cerdas untuk wilayah Jakarta" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .flooden-logo {
+        font-family: 'Pacifico', cursive;
+      }
+      .material-icons-outlined {
+        font-family: 'Material Icons Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+      }
+      .prediction-form {
+        display: none;
+      }
+      .prediction-form.active {
+        display: block;
+      }
+      .home-page.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-br from-blue-100 to-blue-300 min-h-screen">
+    <!-- Home Page -->
+    <div id="homePage" class="home-page">
+      <!-- Header -->
+      <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex items-center justify-center">
+            <span class="material-icons-outlined text-blue-600 text-3xl mr-2">tsunami</span>
+            <span class="text-3xl text-blue-600 flooden-logo">
+              Flooden
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="py-20 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+          <div class="bg-white shadow-2xl rounded-2xl p-12 mb-12">
+            <div class="flex items-center justify-center mb-6">
+              <span class="material-icons-outlined text-blue-600 text-5xl mr-3">tsunami</span>
+              <h1 class="text-5xl font-bold text-blue-800">
+                <span class="text-blue-600 flooden-logo">
+                  Flooden
+                </span>
+              </h1>
+            </div>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+              Sistem Prediksi Banjir Cerdas untuk Jakarta
+            </h2>
+            
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Dapatkan prediksi risiko banjir untuk wilayah Jakarta berdasarkan data cuaca real-time. Siap siaga menghadapi cuaca ekstrem dengan informasi yang tepat waktu.
+            </p>
+            
+            <a href="/predict">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg shadow-lg transition duration-300 text-lg">
+                    <span class="material-icons-outlined mr-2 align-middle">search</span>
+                    Mulai Prediksi Sekarang
+                </button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-12">
+            <h3 class="text-3xl font-bold text-blue-800 mb-4">Fitur Unggulan</h3>
+            <p class="text-lg text-gray-700 max-w-2xl mx-auto">
+              Teknologi canggih untuk memberikan informasi prediksi banjir yang dapat diandalkan
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+              <div class="p-6 text-center">
+                <div class="flex justify-center mb-4">
+                  <span class="material-icons-outlined text-blue-600 text-4xl">
+                    tsunami
+                  </span>
+                </div>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">
+                  Prediksi Banjir
+                </h4>
+                <p class="text-gray-600 leading-relaxed">
+                  Menggunakan data cuaca real-time dan algoritma machine learning untuk prediksi yang tepat
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+              <div class="p-6 text-center">
+                <div class="flex justify-center mb-4">
+                  <span class="material-icons-outlined text-blue-600 text-4xl">
+                    location_on
+                  </span>
+                </div>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">
+                  Area Jakarta
+                </h4>
+                <p class="text-gray-600 leading-relaxed">
+                  Cakupan lengkap Jakarta Utara, Jakarta Selatan, dan Jakarta Pusat
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+              <div class="p-6 text-center">
+                <div class="flex justify-center mb-4">
+                  <span class="material-icons-outlined text-blue-600 text-4xl">
+                    schedule
+                  </span>
+                </div>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">
+                  Real-time
+                </h4>
+                <p class="text-gray-600 leading-relaxed">
+                  Pemantauan kondisi cuaca dan risiko banjir secara real-time
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
+              <div class="p-6 text-center">
+                <div class="flex justify-center mb-4">
+                  <span class="material-icons-outlined text-blue-600 text-4xl">
+                    warning
+                  </span>
+                </div>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">
+                  Peringatan Dini
+                </h4>
+                <p class="text-gray-600 leading-relaxed">
+                  Sistem peringatan dini untuk membantu persiapan menghadapi banjir
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="py-16 px-4 bg-white/50">
+        <div class="container mx-auto max-w-4xl">
+          <div class="text-center mb-12">
+            <h3 class="text-3xl font-bold text-blue-800 mb-4">Cara Kerja</h3>
+            <p class="text-lg text-gray-700">
+              Proses sederhana untuk mendapatkan prediksi banjir yang akurat
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+              <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                1
+              </div>
+              <div class="mb-4">
+                <span class="material-icons-outlined text-blue-600 text-3xl">
+                  location_on
+                </span>
+              </div>
+              <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                Pilih Lokasi
+              </h4>
+              <p class="text-gray-600">
+                Pilih area Jakarta yang ingin diprediksi
+              </p>
+            </div>
+
+            <div class="text-center">
+              <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                2
+              </div>
+              <div class="mb-4">
+                <span class="material-icons-outlined text-blue-600 text-3xl">
+                  date_range
+                </span>
+              </div>
+              <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                Tentukan Tanggal
+              </h4>
+              <p class="text-gray-600">
+                Pilih tanggal untuk prediksi risiko banjir
+              </p>
+            </div>
+
+            <div class="text-center">
+              <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                3
+              </div>
+              <div class="mb-4">
+                <span class="material-icons-outlined text-blue-600 text-3xl">
+                  analytics
+                </span>
+              </div>
+              <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                Dapatkan Hasil
+              </h4>
+              <p class="text-gray-600">
+                Terima prediksi dan rekomendasi tindakan
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+          <div class="bg-white shadow-2xl rounded-lg">
+            <div class="p-12">
+              <h3 class="text-3xl text-blue-600 font-bold mb-4">
+                Siap Menggunakan Flooden?
+              </h3>
+              <p class="text-xl mb-8 opacity-90">
+                Mulai prediksi risiko banjir untuk area Jakarta Anda sekarang juga
+              </p>
+              <a href="/predict">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg shadow-lg transition duration-300 text-lg">
+                    <span class="material-icons-outlined mr-2 align-middle">search</span>
+                    Mulai Prediksi Sekarang
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-blue-800 text-white py-8 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+          <div class="flex items-center justify-center mb-4">
+            <span class="material-icons-outlined text-2xl mr-2">tsunami</span>
+            <span class="text-2xl flooden-logo">
+              Flooden
+            </span>
+          </div>
+          <p class="text-blue-200 mb-2">
+            Sistem Prediksi Banjir Wilayah Jakarta
+          </p>
+          <p class="text-blue-300 text-sm">
+            © Kelompok 2 - Flooden. Semua hak dilindungi.
+          </p>
+        </div>
+      </footer>
+    </div>
+    </script>
+  </body>
+</html>
