@@ -9,7 +9,7 @@ from app.weather_API import get_combined_weather
 model = joblib.load("app/Model/flooden_model_important.pkl")  # path relatif disesuaikan
 api_keys = {
     'openweather': 'dff0a34ec7ec59d3828240dbccc14d76',
-    'visualcrossing': 'XYCM5KGLMGRWNETW94ADVFF65'
+    'visualcrossing': 'C98DPJABNAH73FHJAWDEEZSGR'
 }
 
 # Koordinat lokasi
@@ -58,9 +58,9 @@ def predict():
             weather_data = get_combined_weather(lokasi, api_keys, lat, lon, tanggal=tanggal.isoformat())
 
             data_input = [
-                weather_data['rain_daily'],
-                weather_data['humidity'],
-                weather_data['temp_avg'],
+                round(weather_data['rain_daily'], 2),
+                round(weather_data['humidity'], 2),
+                round(weather_data['temp_avg'], 2),
             ]
 
             input_df = pd.DataFrame([data_input], columns=important_features)
