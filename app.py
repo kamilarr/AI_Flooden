@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 # Load model
 model = joblib.load("flooden_model_all.pkl")
-OPENWEATHER_API_KEY = "dff0a34ec7ec59d3828240dbccc14d76"
+api_keys = {
+    'openweather': 'dff0a34ec7ec59d3828240dbccc14d76',
+    'visualcrossing': 'XYCM5KGLMGRWNETW94ADVFF65'
+}
 
 # Koordinat lokasi
 lokasi_koordinat = {
@@ -35,7 +38,7 @@ def index():
     result = None
     weather_data = None
     lokasi_nama = None
-    tanggal_terpilih = datetime.date.today().strftime('%d %B %Y')  # default tanggal hari ini
+    tanggal_terpilih = datetime.date.today().strftime('%d %B %Y')  # default hari ini
 
     if request.method == 'POST':
         lokasi = request.form.get('location', 'jakarta_pusat')
@@ -52,39 +55,44 @@ def index():
         lokasi_nama = lokasi_nama_map.get(lokasi, "Jakarta Pusat")
 
         try:
-            # Ambil data cuaca sesuai tanggal
-            weather_data = get_combined_weather(lokasi, OPENWEATHER_API_KEY, lat, lon, tanggal=tanggal.isoformat())
+            weather_data = get_combined_weather(lokasi, api_keys, lat, lon, tanggal=tanggal.isoformat())
 
             data_input = [
                 weather_data['temp_min'],
                 weather_data['temp_max'],
                 weather_data['temp_avg'],
                 weather_data['humidity'],
-                weather_data['rain_1h'],
+                weather_data['rain_daily'],      # ✅ daily rainfall
                 weather_data['daylight_hours'],
                 weather_data['wind_speed'],
                 weather_data['wind_deg'],
-                weather_data['wind_speed_nasa'],
-                weather_data['wind_deg'],  # cat_ddd
-                1  # category_region
+                weather_data['wind_speed'],      # ff_avg
+                weather_data['wind_deg'],        # cat_ddd
+                1                                # dummy region
             ]
 
             input_df = pd.DataFrame([data_input], columns=feature_names)
             pred = model.predict(input_df)[0]
 
-            if pred == 1:
-                result = (
-                    '<span class="material-icons-outlined align-middle mr-2">warning</span>'
-                    ' POTENSI BANJIR TERDETEKSI!'
-                )
+            if weather_data.get("data_valid", False):
+                if pred == 1:
+                    result = (
+                        '<span class="material-icons-outlined align-middle mr-2">warning</span>'
+                        ' POTENSI BANJIR TERDETEKSI!'
+                    )
+                else:
+                    result = (
+                        '<span class="material-icons-outlined align-middle mr-2">check_circle</span>'
+                        ' TIDAK ADA POTENSI BANJIR'
+                    )
             else:
                 result = (
-                    '<span class="material-icons-outlined align-middle mr-2">check_circle</span>'
-                    ' TIDAK ADA POTENSI BANJIR'
+                    '<span class="material-icons-outlined align-middle mr-2">error</span>'
+                    ' Data cuaca tidak valid, prediksi mungkin tidak akurat.'
                 )
 
         except Exception as e:
-            result = f"Terjadi error saat prediksi: {e}"
+            result = f"❌ Terjadi error saat prediksi: {e}"
 
     return render_template(
         "index.html",
