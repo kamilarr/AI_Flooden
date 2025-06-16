@@ -16,13 +16,17 @@ api_keys = {
 lokasi_koordinat = {
     'jakarta_utara': (-5.85, 106.82),
     'jakarta_selatan': (-6.28, 106.82),
-    'jakarta_pusat': (-6.17, 106.82)
+    'jakarta_pusat': (-6.17, 106.82),
+    'jakarta_timur': (-6.225, 106.900),
+    'jakarta_barat': (-6.175, 106.750)
 }
 
 lokasi_nama_map = {
     'jakarta_utara': "Jakarta Utara",
     'jakarta_selatan': "Jakarta Selatan",
-    'jakarta_pusat': "Jakarta Pusat"
+    'jakarta_pusat': "Jakarta Pusat",
+    'jakarta_timur': "Jakarta Timur",
+    'jakarta_barat': "Jakarta Barat"
 }
 
 important_features = ["RR", "RH_avg", "Tavg"]
