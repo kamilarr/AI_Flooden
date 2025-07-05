@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score, KFold
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn.metrics import accuracy_score, confusion_matrix
 import joblib
@@ -54,7 +54,6 @@ model_imp.fit(X_train_imp, y_train_imp)
 y_pred_imp = model_imp.predict(X_test_imp)
 acc_imp = accuracy_score(y_test_imp, y_pred_imp)
 
-
 # Simpan model 3 fitur
 joblib.dump(model_imp, "flooden_model_important.pkl")
 
@@ -103,3 +102,40 @@ print("|| F1-score  :", f1_score(y_test_imp, y_pred_imp))
 print("|| ROC AUC   :", roc_auc_score(y_test_imp, model_imp.predict_proba(X_test_imp)[:, 1]))
 print("===================================================")
 
+# ===============================
+# 7. Evaluasi K-Fold Cross Validation (Model 3 Fitur)
+# ===============================
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+model_cv = DecisionTreeClassifier(random_state=42, max_depth=6, min_samples_split=3, class_weight='balanced')
+
+accuracy_scores = cross_val_score(model_cv, X_imp, y_imp, cv=kf, scoring='accuracy')
+precision_scores = cross_val_score(model_cv, X_imp, y_imp, cv=kf, scoring='precision')
+recall_scores = cross_val_score(model_cv, X_imp, y_imp, cv=kf, scoring='recall')
+f1_scores = cross_val_score(model_cv, X_imp, y_imp, cv=kf, scoring='f1')
+
+print("\n===== Evaluasi K-Fold Cross Validation (3 fitur penting) =====")
+print("Akurasi per fold       :", accuracy_scores)
+print("Rata-rata akurasi      :", accuracy_scores.mean())
+print("Rata-rata precision    :", precision_scores.mean())
+print("Rata-rata recall       :", recall_scores.mean())
+print("Rata-rata F1-score     :", f1_scores.mean())
+print("===============================================================")
+
+# ===============================
+# 8. Evaluasi K-Fold Cross Validation (Model Semua Fitur)
+# ===============================
+kf_all = KFold(n_splits=5, shuffle=True, random_state=42)
+model_cv_all = DecisionTreeClassifier(random_state=42, max_depth=6, min_samples_split=3, class_weight='balanced')
+
+accuracy_scores_all = cross_val_score(model_cv_all, X_all, y_all, cv=kf_all, scoring='accuracy')
+precision_scores_all = cross_val_score(model_cv_all, X_all, y_all, cv=kf_all, scoring='precision')
+recall_scores_all = cross_val_score(model_cv_all, X_all, y_all, cv=kf_all, scoring='recall')
+f1_scores_all = cross_val_score(model_cv_all, X_all, y_all, cv=kf_all, scoring='f1')
+
+print("\n==== Evaluasi K-Fold Cross Validation (Semua fitur) ====")
+print("Akurasi per fold       :", accuracy_scores_all)
+print("Rata-rata akurasi      :", accuracy_scores_all.mean())
+print("Rata-rata precision    :", precision_scores_all.mean())
+print("Rata-rata recall       :", recall_scores_all.mean())
+print("Rata-rata F1-score     :", f1_scores_all.mean())
+print("=========================================================")
